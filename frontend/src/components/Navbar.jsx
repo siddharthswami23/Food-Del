@@ -12,13 +12,14 @@ const Navbar = () => {
   ];
 
   return (
-    <div className="w-full h-[10vh] px-40 flex items-center justify-between text-white">
+    <div className="w-full h-[10vh] px-5 sm:px-10 lg:px-40 flex items-center justify-between text-white">
       <img
         className="h-10 hover:scale-110 transition-transform duration-300"
         src={assets.logo}
         alt="Company Logo"
       />
-      <div className="flex gap-10 capitalize">
+      {/* Hide NavLinks on small screens */}
+      <div className="hidden md:flex gap-10 capitalize">
         {menuItems.map((item, index) => (
           <NavLink
             key={index}
