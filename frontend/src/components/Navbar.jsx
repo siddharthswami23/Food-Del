@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { assets } from "../assets/images/assets";
+import { NavLink } from "react-router-dom";
 
 const Navbar = () => {
   const [Menu, setMenu] = useState("home");
@@ -11,7 +12,7 @@ const Navbar = () => {
   ];
 
   return (
-    <div className="mt-5 w-full h-[10vh] px-40 flex items-center justify-between text-white">
+    <div className="w-full h-[10vh] px-40 flex items-center justify-between text-white">
       <img
         className="h-10 hover:scale-110 transition-transform duration-300"
         src={assets.logo}
@@ -19,9 +20,9 @@ const Navbar = () => {
       />
       <div className="flex gap-10 capitalize">
         {menuItems.map((item, index) => (
-          <a
+          <NavLink
             key={index}
-            href={item.link}
+            to={item.link}
             onClick={() => setMenu(item.name)}
             className={`hover:text-orange-500 text-[#495576] transition-colors duration-300 text-2xl ${
               Menu === item.name ? "underline" : ""
@@ -30,7 +31,7 @@ const Navbar = () => {
             tabIndex={0}
           >
             {item.name}
-          </a>
+          </NavLink>
         ))}
       </div>
       <div className="flex gap-10 items-center relative">
