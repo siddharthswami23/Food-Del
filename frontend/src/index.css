@@ -25,15 +25,11 @@ html, body {
 
 /* Custom scrollbar styling */
 ::-webkit-scrollbar {
-  width: 12px;
-}
-
-::-webkit-scrollbar-track {
-  background: #f1f1f1;
+  width: 4px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #888;
+  background: tomato;
   border-radius: 6px;
 }
 
