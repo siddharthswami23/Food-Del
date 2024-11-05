@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { assets } from "../../assets/images/assets";
+import { assets } from "../assets/images/assets";
 
 const Navbar = () => {
   const [Menu, setMenu] = useState("home");
