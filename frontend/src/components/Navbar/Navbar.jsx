@@ -3,67 +3,54 @@ import { assets } from "../../assets/images/assets";
 
 const Navbar = () => {
   const [Menu, setMenu] = useState("home");
+
+  const menuItems = [
+    { name: "home", link: "#" },
+    { name: "mobile-app", link: "#" },
+    { name: "contact-us", link: "#" },
+  ];
+
   return (
     <div className="mt-5 w-full h-[10vh] px-40 flex items-center justify-between text-white">
       <img
-        className="h-10 hover:scale-110 transition-colors duration-300"
+        className="h-10 hover:scale-110 transition-transform duration-300"
         src={assets.logo}
-        alt="Logo"
+        alt="Company Logo"
       />
       <div className="flex gap-10 capitalize">
-        <a
-          href="#"
-          onClick={() => {
-            setMenu("home");
-          }}
-          className={
-            Menu == "home"
-              ? "hover:text-orange-500 text-[#495576] transition-colors duration-300 text-2xl underline"
-              : "hover:text-orange-500 text-[#495576] transition-colors duration-300 text-2xl"
-          }
-        >
-          home
-        </a>
-        <a
-          href="#"
-          onClick={() => {
-            setMenu("mobile-app");
-          }}
-          className={
-            Menu == "mobile-app"
-              ? "hover:text-orange-500 text-[#495576] transition-colors duration-300 text-2xl underline"
-              : "hover:text-orange-500 text-[#495576] transition-colors duration-300 text-2xl"
-          }
-        >
-          mobile-app
-        </a>
-        <a
-          href="#"
-          onClick={() => {
-            setMenu("contact-us");
-          }}
-          className={
-            Menu == "contact-us"
-              ? "hover:text-orange-500 text-[#495576] transition-colors duration-300 text-2xl underline"
-              : "hover:text-orange-500 text-[#495576] transition-colors duration-300 text-2xl"
-          }
-        >
-          contact-us
-        </a>
+        {menuItems.map((item, index) => (
+          <a
+            key={index}
+            href={item.link}
+            onClick={() => setMenu(item.name)}
+            className={`hover:text-orange-500 text-[#495576] transition-colors duration-300 text-2xl ${
+              Menu === item.name ? "underline" : ""
+            }`}
+            role="button"
+            tabIndex={0}
+          >
+            {item.name}
+          </a>
+        ))}
       </div>
-      <div className="flex gap-10 items-center">
+      <div className="flex gap-10 items-center relative">
         <img
           className="h-6 cursor-pointer"
           src={assets.search_icon}
-          alt="Search"
+          alt="Search Icon"
         />
-        <img
-          className="h-6 cursor-pointer"
-          src={assets.basket_icon}
-          alt="Basket"
-        />
+        <div className="relative">
+          <img
+            className="h-6 cursor-pointer"
+            src={assets.basket_icon}
+            alt="Shopping Basket Icon"
+          />
+          <div className="w-[15px] h-[15px] bg-orange-600 absolute top-4 right-0 rounded-full flex items-center justify-center text-xs text-white">
+            1
+          </div>
+        </div>
         <button className="px-10 py-3 rounded-3xl text-xl font-bold tracking-wide capitalize bg-white text-[#495576] hover:bg-orange-500 hover:text-white transition-colors duration-300">
-          sign up
+          Sign Up
         </button>
       </div>
     </div>
