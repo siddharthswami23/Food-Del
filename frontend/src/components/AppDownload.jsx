@@ -3,7 +3,7 @@ import { assets } from "../assets/images/assets";
 
 const AppDownload = () => {
   return (
-    <div className="w-full flex flex-col items-center justify-center py-16 ">
+    <div id="app-download" className="w-full flex flex-col items-center justify-center py-16 ">
       <h1 className="text-6xl text-center font-regular leading-relaxed mb-8">
         For Better Experience Download <br /> Tomato App
       </h1>

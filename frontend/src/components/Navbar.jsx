@@ -7,8 +7,8 @@ const Navbar = () => {
 
   const menuItems = [
     { name: "home", link: "#" },
-    { name: "mobile-app", link: "#" },
-    { name: "contact-us", link: "#" },
+    { name: "mobile-app", link: "#app-download" },
+    { name: "contact-us", link: "#footer" },
   ];
 
   return (
