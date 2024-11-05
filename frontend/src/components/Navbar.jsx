@@ -47,9 +47,7 @@ const Navbar = () => {
             src={assets.basket_icon}
             alt="Shopping Basket Icon"
           />
-          <div className="w-[15px] h-[15px] bg-orange-600 absolute top-4 right-0 rounded-full flex items-center justify-center text-xs text-white">
-            1
-          </div>
+          <div className="w-[10px] h-[10px] bg-orange-600 absolute top-0 right-0 rounded-full flex items-center justify-center text-xs text-white"></div>
         </div>
         <button className="px-10 py-3 rounded-3xl text-xl font-bold tracking-wide capitalize bg-white text-[#495576] hover:bg-orange-500 hover:text-white transition-colors duration-300">
           Sign Up

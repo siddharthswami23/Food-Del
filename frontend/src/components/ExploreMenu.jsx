@@ -20,13 +20,13 @@ const ExploreMenu = ({Category,setCategory}) => {
                             alt={item.menu_name}
                             className={`w-[20vw] md:w-[10vw] min-w-[60px] md:min-w-[80px] cursor-pointer rounded-full transition-all duration-300 hover:scale-105 ${item.menu_name === Category ? "border-[4px] border-solid border-[#FF8A00] p-1" : ""}`}
                         />
-                        <p className="mt-2 md:mt-3 text-[#747474] text-xl md:text-2xl cursor-pointer">
+                        <p className="mt-2 md:mt-3 text-[#747474] text-xlmd:text-2xl cursor-pointer">
                             {item.menu_name}
                         </p>
                     </div>
                 ))}
             </div>
-            <hr className="my-3 md:my-5 h-[1px] md:h-[2px] bg-[#e2e2e2] border-none" />
+            <hr className="my-5 md:my-`0 h-[1px] md:h-[2px] bg-[#e2e2e2] border-none" />
         </div>
     );
 };
