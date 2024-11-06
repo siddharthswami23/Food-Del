@@ -102,9 +102,6 @@ const PlaceOrder = () => {
             </div>
 
             <button
-              onClick={() => {
-                navigate("/order");
-              }}
               className="w-[70%] p-3 capitalize text-xl font-bold mt-5 rounded-lg bg-orange-500 hover:bg-orange-600"
             >
               proceed to payment

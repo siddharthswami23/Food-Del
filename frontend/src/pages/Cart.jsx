@@ -12,14 +12,14 @@ const Cart = () => {
   return (
     <>
       <div className="text-white min-h-[35vh]">
-        <div className="max-w-[75%] mx-auto">
-          <div className="w-full mt-5 grid grid-cols-6 text-xl capitalize font-bold py-5 items-center">
-            <h1 className="text-center">Items</h1>
-            <h1 className="text-center">Title</h1>
-            <h1 className="text-center">Price</h1>
-            <h1 className="text-center">Quantity</h1>
-            <h1 className="text-center">Total</h1>
-            <h1 className="text-center">Remove</h1>
+        <div className="max-w-[95%] lg:max-w-[75%] mx-auto">
+          <div className="w-full mt-5 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 text-lg sm:text-xl font-bold py-3 items-center gap-4">
+            <h1 className="text-center col-span-2 lg:col-span-1">Items</h1>
+            <h1 className="text-center col-span-2 lg:col-span-1">Title</h1>
+            <h1 className="hidden md:block text-center col-span-1">Price</h1>
+            <h1 className="hidden lg:block text-center col-span-1">Quantity</h1>
+            <h1 className="hidden lg:block text-center col-span-1">Total</h1>
+            <h1 className="text-center col-span-2 lg:col-span-1">Remove</h1>
           </div>
           <hr className="bg-gray-400 mt-1" />
 
@@ -28,25 +28,31 @@ const Cart = () => {
               return (
                 <div
                   key={index}
-                  className="w-full grid grid-cols-6 items-center text-xl capitalize font-bold py-5 border-b-2 border-gray-200 mb-2"
+                  className="w-full grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 items-center text-lg sm:text-xl font-bold py-3 border-b border-gray-200 mb-2 gap-4"
                 >
-                  <div className="flex justify-center">
+                  <div className="flex justify-center col-span-2 sm:col-span-1">
                     <img
-                      className="h-20 w-20 bg-green-500"
+                      className="h-16 w-16 sm:h-20 sm:w-20 bg-green-500 rounded-md"
                       src={item.image}
-                      alt=""
+                      alt={item.name}
                     />
                   </div>
-                  <h1 className="text-center">{item.name}</h1>
-                  <h1 className="text-center">$ {item.price}</h1>
-                  <h1 className="text-center">{CartItem[item._id]}</h1>
-                  <h1 className="text-center">
+                  <h1 className="text-center col-span-2 sm:col-span-2 lg:col-span-1 text-sm sm:text-base">
+                    {item.name}
+                  </h1>
+                  <h1 className="hidden md:block text-center col-span-1 text-sm sm:text-base">
+                    $ {item.price}
+                  </h1>
+                  <h1 className="hidden lg:block text-center col-span-1 text-sm sm:text-base">
+                    {CartItem[item._id]}
+                  </h1>
+                  <h1 className="hidden lg:block text-center col-span-1 text-sm sm:text-base">
                     $ {item.price * CartItem[item._id]}
                   </h1>
-                  <div className="flex justify-center">
+                  <div className="flex justify-center col-span-2 sm:col-span-1 lg:col-span-1">
                     <IoClose
                       className="cursor-pointer"
-                      style={{ fontSize: "40px", color: "white" }}
+                      style={{ fontSize: "30px", color: "white" }}
                       onClick={() => {
                         removeFromCart(item._id);
                       }}
@@ -58,21 +64,23 @@ const Cart = () => {
           })}
         </div>
 
-        <div className="mx-auto max-w-[75%] flex items-center justify-between p-5">
-          <div className="w-[25vw]  p-10 capitalize">
-            <h1 className="text-5xl font-bold capitalize mb-5">card total</h1>
-            <div className="flex w-full justify-between py-5 ">
-              <p className="text-3xl">Subtotal</p>
+        <div className="mx-auto max-w-[95%] lg:max-w-[75%] flex flex-col lg:flex-row items-center justify-between p-5 space-y-8 lg:space-y-0">
+          <div className="w-full lg:w-[30vw] p-5 capitalize bg-gray-900 rounded-lg shadow-lg">
+            <h1 className="text-4xl sm:text-5xl font-bold capitalize mb-5">
+              Cart Total
+            </h1>
+            <div className="flex w-full justify-between py-3 sm:py-5 text-lg sm:text-xl">
+              <p>Subtotal</p>
               <p>$ {getTotalAmount()}</p>
             </div>
             <hr />
-            <div className="flex w-full justify-between py-5">
-              <p className="text-3xl">Delivery fee</p>
+            <div className="flex w-full justify-between py-3 sm:py-5 text-lg sm:text-xl">
+              <p>Delivery fee</p>
               <p>$ 2</p>
             </div>
             <hr />
-            <div className="flex w-full justify-between py-5">
-              <p className="text-3xl">Total</p>
+            <div className="flex w-full justify-between py-3 sm:py-5 text-lg sm:text-xl">
+              <p>Total</p>
               <p>${getTotalAmount() + 2}</p>
             </div>
 
@@ -80,24 +88,23 @@ const Cart = () => {
               onClick={() => {
                 navigate("/order");
               }}
-              className="w-[70%] p-3 capitalize text-xl font-bold mt-5 rounded-lg bg-orange-500 hover:bg-orange-600"
+              className="w-full p-3 capitalize text-lg font-bold mt-5 rounded-lg bg-orange-500 hover:bg-orange-600 transition-all"
             >
-              proceed to checkout
+              Proceed to Checkout
             </button>
           </div>
 
-          <div className="w-1/2 p-10 capitalize">
-            <h1 className="text-xl font-bold capitalize mb-5">
-              If You Have a promo code, Enter It Here
+          <div className="w-full lg:w-[50%] p-5 capitalize bg-gray-900 rounded-lg shadow-lg">
+            <h1 className="text-lg font-bold capitalize mb-5">
+              If you have a promo code, enter it here
             </h1>
-
-            <div className="flex w-full justify-between">
+            <div className="flex w-full justify-between space-x-2">
               <input
                 type="text"
-                className="w-3/4 p-4 text-xl"
+                className="w-3/4 p-3 text-base sm:text-lg rounded-lg bg-gray-200 focus:outline-none"
                 placeholder="Enter Promo Code"
               />
-              <button className="w-1/4 p-2 bg-orange-500 hover:bg-orange-600">
+              <button className="w-1/4 p-2 bg-orange-500 hover:bg-orange-600 rounded-lg text-white text-lg sm:text-xl">
                 Apply
               </button>
             </div>
