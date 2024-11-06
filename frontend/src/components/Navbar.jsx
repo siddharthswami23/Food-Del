@@ -1,56 +1,51 @@
-import { useState } from "react";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import { assets } from "../assets/images/assets";
-import { NavLink } from "react-router-dom";
 
-const Navbar = () => {
-  const [Menu, setMenu] = useState("home");
-
-  const menuItems = [
-    { name: "home", link: "#" },
-    { name: "mobile-app", link: "#app-download" },
-    { name: "contact-us", link: "#footer" },
-  ];
+const Navbar = ({ setShowLogin }) => {
+  const [menu, setMenu] = useState("Home");
 
   return (
-    <div className="w-full h-[10vh] px-5 sm:px-10 lg:px-40 flex items-center justify-between text-white">
-      <img
-        className="h-10 hover:scale-110 transition-transform duration-300"
-        src={assets.logo}
-        alt="Company Logo"
-      />
-      {/* Hide NavLinks on small screens */}
-      <div className="hidden md:flex gap-10 capitalize">
-        {menuItems.map((item, index) => (
-          <NavLink
-            key={index}
-            to={item.link}
-            onClick={() => setMenu(item.name)}
-            className={`hover:text-orange-500 text-[#495576] transition-colors duration-300 text-2xl ${
-              Menu === item.name ? "underline" : ""
-            }`}
-            role="button"
-            tabIndex={0}
-          >
-            {item.name}
-          </NavLink>
-        ))}
-      </div>
-      <div className="flex gap-10 items-center relative">
-        <img
-          className="h-6 cursor-pointer"
-          src={assets.search_icon}
-          alt="Search Icon"
-        />
-        <div className="relative">
-          <img
-            className="h-6 cursor-pointer"
-            src={assets.basket_icon}
-            alt="Shopping Basket Icon"
-          />
-          <div className="w-[10px] h-[10px] bg-orange-600 absolute top-0 right-0 rounded-full flex items-center justify-center text-xs text-white"></div>
-        </div>
-        <button className="px-10 py-3 rounded-3xl text-xl font-bold tracking-wide capitalize bg-white text-[#495576] hover:bg-orange-500 hover:text-white transition-colors duration-300">
-          Sign Up
+    <div className="mx-auto max-w-[75%] flex justify-between items-center py-5 px-5 md:px-10">
+      <img src={assets.logo} alt="" className="sm:h-3 lg:h-10" />
+
+      <ul className="hidden md:flex items-center gap-5 text-lg text-[#49557e]">
+        <Link
+          to="/"
+          className={`cursor-pointer ${
+            menu === "Home" ? "border-b-2 border-[#49557e] pt-1" : ""
+          }`}
+          onClick={() => setMenu("Home")}
+        >
+          Home
+        </Link>
+        <a
+          href="#app-download"
+          className={`cursor-pointer ${
+            menu === "Mobile-App" ? "border-b-2 border-[#49557e] pt-1" : ""
+          }`}
+          onClick={() => setMenu("Mobile-App")}
+        >
+          Mobile-App
+        </a>
+        <a
+          href="#footer"
+          className={`cursor-pointer ${
+            menu === "Contact Us" ? "border-b-2 border-[#49557e] pt-1" : ""
+          }`}
+          onClick={() => setMenu("Contact Us")}
+        >
+          Contact Us
+        </a>
+      </ul>
+
+      <div className="flex items-center gap-10">
+        <img src={assets.search_icon} alt="Search" className="w-6 h-6" />
+
+        <img src={assets.basket_icon} alt="Cart" className="w-6 h-6" />
+
+        <button className="bg-transparent text-lg text-[#49557e] border border-tomato py-2 px-7 rounded-full hover:bg-[#fff4f2] cursor-pointer">
+          sign in
         </button>
       </div>
     </div>
