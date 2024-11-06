@@ -3,10 +3,12 @@ import { StoreContext } from "../context/StoreContext";
 import { IoClose } from "react-icons/io5";
 import AppDownload from "../components/AppDownload";
 import Footer from "../components/Footer";
+import { useNavigate } from "react-router-dom";
 
 const Cart = () => {
-  const { CartItem, food_list, removeFromCart } = useContext(StoreContext);
-
+  const { CartItem, food_list, removeFromCart, getTotalAmount } =
+    useContext(StoreContext);
+  const navigate = useNavigate();
   return (
     <>
       <div className="text-white min-h-[35vh]">
@@ -61,7 +63,7 @@ const Cart = () => {
             <h1 className="text-5xl font-bold capitalize mb-5">card total</h1>
             <div className="flex w-full justify-between py-5 ">
               <p className="text-3xl">Subtotal</p>
-              <p>$ 2</p>
+              <p>$ {getTotalAmount()}</p>
             </div>
             <hr />
             <div className="flex w-full justify-between py-5">
@@ -71,10 +73,15 @@ const Cart = () => {
             <hr />
             <div className="flex w-full justify-between py-5">
               <p className="text-3xl">Total</p>
-              <p>$ 2</p>
+              <p>${getTotalAmount() + 2}</p>
             </div>
 
-            <button className="w-[70%] p-3 capitalize text-xl font-bold mt-5 rounded-lg bg-orange-500 hover:bg-orange-600">
+            <button
+              onClick={() => {
+                navigate("/order");
+              }}
+              className="w-[70%] p-3 capitalize text-xl font-bold mt-5 rounded-lg bg-orange-500 hover:bg-orange-600"
+            >
               proceed to checkout
             </button>
           </div>
@@ -93,8 +100,7 @@ const Cart = () => {
               <button className="w-1/4 p-2 bg-orange-500 hover:bg-orange-600">
                 Apply
               </button>
-              </div>
-              
+            </div>
           </div>
         </div>
       </div>
