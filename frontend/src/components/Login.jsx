@@ -25,6 +25,7 @@ const Login = ({ setShowLogin }) => {
     return (
         <div className="text-white fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full min-h-screen flex items-center justify-center bg-[#6F6F6F]/30 z-10">
             <form
+            autoCapitalize="off"
                 onSubmit={handleSubmit}
                 className="w-[90vw] sm:w-[70vw] md:w-[50vw] lg:w-[30vw] xl:w-[25vw] h-fit py-10 px-5 sm:px-10 md:px-20 flex flex-col gap-5 bg-white rounded-lg shadow-lg"
             >
