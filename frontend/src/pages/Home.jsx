@@ -12,6 +12,8 @@ const Home = () => {
       <Header />
       <ExploreMenu Category={Category} setCategory={setCategory} />
       <FoodDisplay Category={Category} setCategory={setCategory} />
+      <AppDownload />
+      <Footer />
     </div>
   );
 };
