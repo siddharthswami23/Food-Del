@@ -6,6 +6,7 @@ import PlaceOrder from "./pages/PlaceOrder";
 import { useEffect, useState } from "react";
 import Lenis from "lenis";
 import Login from "./components/Login";
+import Footer from "./components/Footer";
 
 const App = () => {
   const [ShowLogin, setShowLogin] = useState(false)
@@ -35,6 +36,7 @@ const App = () => {
         <Route path="/cart" element={<Cart />} />
         <Route path="/order" element={<PlaceOrder />} />
       </Routes>
+      <Footer />
     </div>
   );
 };
