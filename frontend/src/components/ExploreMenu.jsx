@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import { menu_list } from "../assets/images/assets";
 
 const ExploreMenu = ({Category,setCategory}) => {
@@ -31,9 +30,5 @@ const ExploreMenu = ({Category,setCategory}) => {
     );
 };
 
-ExploreMenu.propTypes = {
-    Category: PropTypes.string.isRequired,
-    setCategory: PropTypes.func.isRequired,
-}
 
 export default ExploreMenu;

@@ -1,9 +1,9 @@
-import PropTypes from "prop-types";
 import { assets } from "../assets/images/assets";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { StoreContext } from "../context/StoreContext";
 
 const FoodItem = ({ item }) => {
-  const [itemCount, setItemCount] = useState(0);
+  const { CartItem, addToCart, removeFromCart } = useContext(StoreContext);
 
   return (
     <div className="max-w-xs rounded-xl overflow-hidden shadow-lg bg-white transition-transform">
@@ -13,25 +13,25 @@ const FoodItem = ({ item }) => {
           src={item.image}
           alt={item.name}
         />
-        {!itemCount ? (
+        {!CartItem[item._id] ? (
           <img
             className="absolute bottom-2 right-2 scale-95 cursor-pointer"
             src={assets.add_icon_white}
             alt="Add item"
-            onClick={() => setItemCount((prev) => prev + 1)}
+            onClick={() => addToCart(item._id)}
           />
         ) : (
           <div className="absolute bottom-2 right-2 cursor-pointer bg-white rounded-full p-2 flex justify-center items-center gap-2">
             <img
               src={assets.remove_icon_red}
               alt="Remove item"
-              onClick={() => setItemCount((prev) => Math.max(prev - 1))} // Preventing negative item count
+              onClick={() => removeFromCart(item._id)}
             />
-            <p className="text-black">{itemCount}</p>
+            <p className="text-black">{CartItem[item._id]}</p>
             <img
               src={assets.add_icon_green}
               alt="Add more"
-              onClick={() => setItemCount((prev) => prev + 1)}
+              onClick={() => addToCart(item._id)}
             />
           </div>
         )}
@@ -52,17 +52,6 @@ const FoodItem = ({ item }) => {
       </div>
     </div>
   );
-};
-
-FoodItem.propTypes = {
-  item: PropTypes.shape({
-    _id: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    image: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-    description: PropTypes.string.isRequired,
-    category: PropTypes.string.isRequired,
-  }).isRequired,
 };
 
 export default FoodItem;
