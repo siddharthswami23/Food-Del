@@ -8,7 +8,7 @@ import Lenis from "lenis";
 import Login from "./components/Login";
 
 const App = () => {
-  const [ShowLogin, setShowLogin] = useState(false);
+  const [ShowLogin, setShowLogin] = useState(false)
   useEffect(() => {
     // Initialize Lenis
     const lenis = new Lenis();
@@ -26,8 +26,9 @@ const App = () => {
   }, []);
 
   return (
+    
     <div>
-      {ShowLogin ? <Login setShowLogin={setShowLogin} /> : ""}
+      {ShowLogin ? <Login setShowLogin={setShowLogin} /> : "" }
       <Navbar setShowLogin={setShowLogin} />
       <Routes>
         <Route path="/" element={<Home />} />
