@@ -3,10 +3,12 @@ import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import Cart from "./pages/Cart";
 import PlaceOrder from "./pages/PlaceOrder";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Lenis from "lenis";
+import Login from "./components/Login";
 
 const App = () => {
+  const [ShowLogin, setShowLogin] = useState(false)
   useEffect(() => {
     // Initialize Lenis
     const lenis = new Lenis();
@@ -24,8 +26,10 @@ const App = () => {
   }, []);
 
   return (
+    
     <div>
-      <Navbar />
+      {ShowLogin ? <Login setShowLogin={setShowLogin} /> : "" }
+      <Navbar setShowLogin={setShowLogin} />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/cart" element={<Cart />} />

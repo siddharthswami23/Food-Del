@@ -44,7 +44,7 @@ const Navbar = ({ setShowLogin }) => {
 
         <img src={assets.basket_icon} alt="Cart" className="w-6 h-6" />
 
-        <button className="bg-transparent text-sm lg:text-lg text-white font-bold border border-tomato lg:py-2 px-5 lg:px-7 rounded-full hover:bg-[#fff4f2] hover:text-black cursor-pointer">
+        <button onClick={()=>setShowLogin(true)} className="bg-transparent text-sm lg:text-lg text-white font-bold border border-tomato lg:py-2 px-5 lg:px-7 rounded-full hover:bg-[#fff4f2] hover:text-black cursor-pointer">
           sign in
         </button>
       </div>
