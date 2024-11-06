@@ -1,8 +1,8 @@
 import React from "react";
-import { assets } from "../assets/images/assets";
 import { IoClose } from "react-icons/io5";
 
 const Login = ({ setShowLogin }) => {
+    
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -14,7 +14,7 @@ const Login = ({ setShowLogin }) => {
   };
 
   return (
-    <div className="text-white fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-screen flex items-center justify-center bg-[#6F6F6F]/30 z-10 ">
+    <div className="text-white fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-screen flex items-center justify-center bg-[#6F6F6F]/30 z-10">
       <form
         onSubmit={handleSubmit}
         className="w-[25vw] h-fit py-10 px-20 flex flex-col gap-5 bg-white rounded-lg shadow-lg"
@@ -54,7 +54,21 @@ const Login = ({ setShowLogin }) => {
           value="Create Account"
           className="bg-orange-500 text-white p-2 rounded cursor-pointer hover:bg-orange-600"
         />
-        <p className="text-center text-xl text-black mt-5">
+        
+        <div className="flex gap-2 items-center">
+          <input
+            type="checkbox"
+            name="terms"
+            id="terms"
+            required
+            className="w-5 h-5 accent-orange-500 border-2 border-gray-300 rounded-sm cursor-pointer"
+          />
+          <label htmlFor="terms" className="text-black text-sm text-nowrap">
+            By continuing, I agree to the terms of use & privacy policy.
+          </label>
+        </div>
+        
+        <p className="text-center text-xl text-black">
           Already have an account?{" "}
           <a href="#" className="text-orange-500 hover:underline">
             Sign in
