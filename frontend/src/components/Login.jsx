@@ -1,8 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import { IoClose } from "react-icons/io5";
 
 const Login = ({ setShowLogin }) => {
-    
+  const [CurrentState, setCurrentState] = useState("Sign Up");
+
+  const CurrentStateHandler = (CurrentState) => {
+    if (CurrentState === "Sign Up") {
+      setCurrentState("Log In");
+    } else {
+      setCurrentState("Sign Up");
+    }
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -14,13 +23,15 @@ const Login = ({ setShowLogin }) => {
   };
 
   return (
-    <div className="text-white fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-screen flex items-center justify-center bg-[#6F6F6F]/30 z-10">
+    <div className="text-white fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full min-h-screen flex items-center justify-center bg-[#6F6F6F]/30 z-10">
       <form
         onSubmit={handleSubmit}
         className="w-[25vw] h-fit py-10 px-20 flex flex-col gap-5 bg-white rounded-lg shadow-lg"
       >
         <div className="flex w-full items-center justify-between">
-          <h1 className="text-2xl font-bold text-left text-black">Sign up</h1>
+          <h1 className="text-2xl font-bold text-left text-black">
+            {CurrentState}
+          </h1>
           <IoClose
             className="cursor-pointer"
             style={{ fontSize: "40px", color: "black", zIndex: 20 }}
@@ -28,13 +39,17 @@ const Login = ({ setShowLogin }) => {
           />
         </div>
 
-        <input
-          type="text"
-          name="name"
-          placeholder="Your Name"
-          required
-          className="p-2 text-black border-gray-300 rounded outline-none border focus:border-orange-400"
-        />
+        {CurrentState === "Sign Up" ? (
+          <input
+            type="text"
+            name="name"
+            placeholder="Your Name"
+            required
+            className="p-2 text-black border-gray-300 rounded outline-none border focus:border-orange-400"
+          />
+        ) : (
+          ""
+        )}
         <input
           type="email"
           name="email"
@@ -51,10 +66,10 @@ const Login = ({ setShowLogin }) => {
         />
         <input
           type="submit"
-          value="Create Account"
+          value={CurrentState === "Sign Up" ? "Sign Up" : "Log In"}
           className="bg-orange-500 text-white p-2 rounded cursor-pointer hover:bg-orange-600"
         />
-        
+
         <div className="flex gap-2 items-center">
           <input
             type="checkbox"
@@ -67,13 +82,34 @@ const Login = ({ setShowLogin }) => {
             By continuing, I agree to the terms of use & privacy policy.
           </label>
         </div>
-        
-        <p className="text-center text-xl text-black">
-          Already have an account?{" "}
-          <a href="#" className="text-orange-500 hover:underline">
-            Sign in
-          </a>
-        </p>
+
+        {CurrentState === "Sign Up" ? (
+          <p className="text-center text-xl text-black">
+            Already have an account?{" "}
+            <button
+              onClick={() => {
+                CurrentStateHandler(CurrentState);
+              }}
+              href="#"
+              className="text-orange-500 hover:underline"
+            >
+              Log in
+            </button>
+          </p>
+        ) : (
+          <p className="text-center text-xl text-black">
+            Create a new account?{" "}
+            <button
+              onClick={() => {
+                CurrentStateHandler(CurrentState);
+              }}
+              href="#"
+              className="text-orange-500 hover:underline"
+            >
+              Sign Up
+            </button>
+          </p>
+        )}
       </form>
     </div>
   );
