@@ -13,10 +13,10 @@ const addFood = async (req, res) => {
   });
   try {
     await food.save();
-    res.json({ success: true, message: "food added" });
+    res.status(200).json({ success: true, message: "food added" });
   } catch (error) {
     console.log(error);
-    res.json({ success: false, message: "failed to add food" });
+    res.status(400).json({ success: false, message: "failed to add food" });
   }
 };
 
