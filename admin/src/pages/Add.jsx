@@ -1,44 +1,74 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { assets } from "../assets/assets";
-import { data } from "react-router-dom";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 const Add = () => {
-  const [image, setimage] = useState(false);
-  const [data, setdata] = useState({
+  const URL = "http://localhost:4000";
+
+  const [image, setImage] = useState(null); // Initialize as null
+  const [formData, setFormData] = useState({
     name: "",
     description: "",
-    category: "",
-    price: "Salad",
+    category: "Salad",
+    price: "",
   });
 
   const onChangeHandler = (event) => {
     const name = event.target.name;
     const value = event.target.value;
-    setdata((data) => ({ ...data, [name]: value }));
+    setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
 
-  
+  const onSubmitHandler = async (event) => {
+    event.preventDefault();
+    const form = new FormData();
+    form.append("name", formData.name);
+    form.append("description", formData.description);
+    form.append("price", Number(formData.price));
+    form.append("category", formData.category);
+    form.append("image", image);
+
+    try {
+      const response = await axios.post(`${URL}/api/food/add`, form);
+      if (response.data.success) {
+        setFormData({
+          name: "",
+          description: "",
+          category: "Salad",
+          price: "",
+        });
+        setImage(false);
+        toast.success("Product added successfully");
+      } else {
+        toast.error("Failed to add product");
+      }
+    } catch (error) {
+      console.error("Error during API call:", error);
+    }
+  };
 
   return (
-    <div className="w-[80%] sm:w-[70%] md:w-[60%] ml-[5vw] mt-10 p-8 shadow-lg rounded-xl bg-gray-800 text-white">
+    <div className="w-[90%] sm:w-[80%] md:w-[70%] lg:w-[60%] xl:w-[50%] mx-auto mt-10 p-8 shadow-lg rounded-xl bg-gray-800 text-white">
       <form
+        onSubmit={onSubmitHandler}
         action=""
         method="post"
         className="flex flex-col items-start space-y-6"
       >
-        <div className="flex flex-col w-[50%]">
+        <div className="flex flex-col w-full sm:w-[80%] md:w-[70%] lg:w-[60%]">
           <p className="mb-2 text-lg font-semibold ">Upload Image</p>
           <label htmlFor="image" className="cursor-pointer flex justify-start">
             <img
-              src={image ? URL.createObjectURL(image) : assets.upload_area}
+              src={
+                image ? window.URL.createObjectURL(image) : assets.upload_area
+              }
               alt="Upload Area"
-              className="w-[50%] h-40 object-fill border-2 border-dashed border-gray-400 rounded-lg "
+              className="w-full h-40 object-fill border-2 border-dashed border-gray-400 rounded-lg "
             />
           </label>
           <input
-            onChange={(e) => {
-              setimage(e.target.files[0]);
-            }}
+            onChange={(e) => setImage(e.target.files[0])}
             type="file"
             name="image"
             id="image"
@@ -47,11 +77,11 @@ const Add = () => {
           />
         </div>
 
-        <div className="flex flex-col w-[50%]">
+        <div className="flex flex-col w-full sm:w-[80%] md:w-[70%] lg:w-[60%]">
           <p className="mb-2 text-lg font-semibold">Product Name</p>
           <input
-          onChange={onChangeHandler}
-          value={data.name}
+            onChange={onChangeHandler}
+            value={formData.name}
             type="text"
             name="name"
             placeholder="Enter Product Name"
@@ -59,11 +89,11 @@ const Add = () => {
           />
         </div>
 
-        <div className="flex flex-col w-[50%]">
+        <div className="flex flex-col w-full sm:w-[80%] md:w-[70%] lg:w-[60%]">
           <p className="mb-2 text-lg font-semibold">Product Description</p>
           <textarea
             onChange={onChangeHandler}
-            value={data.description}
+            value={formData.description}
             name="description"
             rows="6"
             placeholder="Write the product description"
@@ -71,12 +101,11 @@ const Add = () => {
           />
         </div>
 
-        <div className="flex space-x-6 w-[50%]">
-          <div className="flex flex-col w-1/2">
+        <div className="flex flex-col sm:flex-row space-y-6 sm:space-y-0 sm:space-x-6 w-full sm:w-[80%] md:w-[70%] lg:w-[60%]">
+          <div className="flex flex-col w-full sm:w-1/2">
             <p className="mb-2 text-lg font-semibold">Product Category</p>
             <select
-                onChange={onChangeHandler}
-
+              onChange={onChangeHandler}
               name="category"
               className="p-3 border border-gray-300 rounded-lg text-black focus:outline-none focus:ring-2 focus:ring-blue-500"
             >
@@ -90,11 +119,11 @@ const Add = () => {
               <option value="Noodles">Noodles</option>
             </select>
           </div>
-          <div className="flex flex-col w-1/2">
+          <div className="flex flex-col w-full sm:w-1/2">
             <p className="mb-2 text-lg font-semibold">Product Price</p>
             <input
-            onChange={onChangeHandler}
-            value={data.price}
+              onChange={onChangeHandler}
+              value={formData.price}
               type="number"
               name="price"
               placeholder="$20"
