@@ -7,8 +7,9 @@ const FoodDisplay = ({ Category, setCategory }) => {
 
   return (
     <div className="mx-auto max-w-[75vw] py-10 px-3 rounded-lg shadow-lg">
+
       <h1 className="font-bold text-7xl mb-10">Top dishes near you</h1>
-      <div className="flex gap-5 flex-wrap flex-shrink-0">
+      <div className="flex gap-5 flex-wrap flex-shrink-0 ">
         {food_list
           .filter(item => item.category === Category || Category === "All")
           .map((item, index) => (

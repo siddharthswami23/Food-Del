@@ -1,15 +1,20 @@
 const express = require("express");
 const cors = require("cors");
+const path = require("path");
 const port = 4000;
 const { connectDB } = require("./config/db.js");
 const Foodrouter = require("./routes/FoodRouter.js");
+const uploads = path.join(__dirname, "uploads");
 
 const app = express();
 app.use(express.json());
 app.use(cors());
 connectDB();
 
+// console.log(uploads)
+
 app.use("/api/food", Foodrouter);
+app.use("/images", express.static(uploads));
 
 app.get("/", (req, res) => {
   res.send("api is running");

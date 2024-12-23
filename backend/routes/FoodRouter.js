@@ -1,6 +1,10 @@
 const express = require("express");
 const Foodrouter = express.Router();
-const { addFood } = require("../controllers/FoodControllers");
+const {
+  addFood,
+  listFood,
+  removeFood,
+} = require("../controllers/FoodControllers");
 const multer = require("multer");
 
 Foodrouter.get("/", (req, res) => {
@@ -20,5 +24,7 @@ const upload = multer({ storage: storage });
 //   res.send("add food router");
 // });
 Foodrouter.post("/add", upload.single("image"), addFood);
+Foodrouter.get("/list", listFood);
+Foodrouter.post("/remove", removeFood);
 
 module.exports = Foodrouter;
