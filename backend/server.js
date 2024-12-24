@@ -3,7 +3,12 @@ const cors = require("cors");
 const path = require("path");
 const port = 4000;
 const { connectDB } = require("./config/db.js");
+
+const dotenv = require("dotenv");
+dotenv.config();
+
 const Foodrouter = require("./routes/FoodRouter.js");
+const userRouter = require("./routes/UserRouter.js");
 const uploads = path.join(__dirname, "uploads");
 
 const app = express();
@@ -15,6 +20,7 @@ connectDB();
 
 app.use("/api/food", Foodrouter);
 app.use("/images", express.static(uploads));
+app.use("/api/user", userRouter);
 
 app.get("/", (req, res) => {
   res.send("api is running");
