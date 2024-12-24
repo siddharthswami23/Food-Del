@@ -1,8 +1,28 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { IoClose } from "react-icons/io5";
+import { StoreContext } from "../context/StoreContext";
+import axios from "axios";
+import "./Navbar.css";
 
 const Login = ({ setShowLogin }) => {
+  const { url, settoken } = useContext(StoreContext);
+  // console.log(url);
   const [CurrentState, setCurrentState] = useState("Sign Up");
+  const [data, setdata] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
+
+  const onChangeHandler = (event) => {
+    const name = event.target.name;
+    const value = event.target.value;
+    setdata((data) => ({ ...data, [name]: value }));
+  };
+
+  // useEffect(() => {
+  //   console.log(data);
+  // }, [data]);
 
   const CurrentStateHandler = (CurrentState) => {
     if (CurrentState === "Sign Up") {
@@ -12,21 +32,32 @@ const Login = ({ setShowLogin }) => {
     }
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const onLogin = async (event) => {
+    event.preventDefault();
+    let newurl = url;
+    if (CurrentState === "Log In") {
+      newurl += "api/user/login";
+      console.log("login");
+    } else {
+      newurl += "api/user/register";
+    }
 
-    const name = e.target.name.value;
-    const email = e.target.email.value;
-    const password = e.target.password.value;
+    const response = await axios.post(newurl, data);
 
-    console.log({ name, email, password });
+    if (response.data.success) {
+      settoken(response.data.token);
+      localStorage.setItem("token", response.data.token);
+      setShowLogin(false);
+    } else {
+      alert(response.data.message);
+    }
   };
 
   return (
     <div className="text-white fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full min-h-screen flex items-center justify-center bg-[#6F6F6F]/30 z-10">
       <form
         autoCapitalize="off"
-        onSubmit={handleSubmit}
+        onSubmit={onLogin}
         className="w-[90vw] sm:w-[70vw] md:w-[50vw] lg:w-[30vw] xl:w-[25vw] h-fit py-10 px-5 sm:px-10 md:px-20 flex flex-col gap-5 bg-white rounded-lg shadow-lg"
       >
         <div className="flex w-full items-center justify-between">
@@ -44,6 +75,8 @@ const Login = ({ setShowLogin }) => {
           <input
             type="text"
             name="name"
+            onChange={onChangeHandler}
+            value={data.name}
             placeholder="Your Name"
             required
             className="p-2 text-black border-gray-300 rounded outline-none border focus:border-orange-400"
@@ -54,6 +87,8 @@ const Login = ({ setShowLogin }) => {
         <input
           type="email"
           name="email"
+          onChange={onChangeHandler}
+          value={data.email}
           placeholder="Your Email"
           required
           className="p-2 text-black border-gray-300 rounded outline-none border focus:border-orange-400"
@@ -61,6 +96,8 @@ const Login = ({ setShowLogin }) => {
         <input
           type="password"
           name="password"
+          onChange={onChangeHandler}
+          value={data.password}
           placeholder="Password"
           required
           className="p-2 text-black border-gray-300 rounded outline-none border focus:border-orange-400"

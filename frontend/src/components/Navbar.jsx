@@ -3,18 +3,19 @@ import { Link } from "react-router-dom";
 import { assets } from "../assets/images/assets";
 import { StoreContext } from "../context/StoreContext";
 
-
 const Navbar = ({ setShowLogin }) => {
+  const { token } = useContext(StoreContext);
   const { getTotalAmount } = useContext(StoreContext);
   const [menu, setMenu] = useState("Home");
+  const [isProfileHover, setIsProfileHover] = useState(false);
 
   return (
-    <div className="mx-10 max-w-full lg:mx-auto lg:max-w-[75%] overflow-hidden flex justify-between items-center py-5 px-5 md:px-10">
+    <div className="mx-10 max-w-full lg:mx-auto lg:max-w-[75%] flex justify-between items-center py-5 px-5 md:px-10">
       <Link to="/">
         <img src={assets.logo} alt="Logo" className="h-5 lg:h-10" />
       </Link>
 
-      <ul className="hidden md:flex items-center gap-5 text-lg text-white">
+      <ul className="hidden md:flex items-center gap-5 text-lg text-white ">
         <Link
           to="/"
           className={`cursor-pointer ${
@@ -62,12 +63,41 @@ const Navbar = ({ setShowLogin }) => {
           }`}
         ></div>
 
-        <button
-          onClick={() => setShowLogin(true)}
-          className="bg-transparent text-sm lg:text-lg text-white font-bold border border-tomato lg:py-2 px-5 lg:px-7 rounded-full hover:bg-[#fff4f2] hover:text-black cursor-pointer"
-        >
-          sign in
-        </button>
+        {!token ? (
+          <button
+            onClick={() => setShowLogin(true)}
+            className="bg-transparent text-sm lg:text-lg text-white font-bold border border-tomato lg:py-2 px-5 lg:px-7 rounded-full hover:bg-[#fff4f2] hover:text-black cursor-pointer"
+          >
+            sign in
+          </button>
+        ) : (
+          <div
+            className="relative"
+            onMouseEnter={() => setIsProfileHover(true)}
+            onMouseLeave={() => setIsProfileHover(false)}
+          >
+            <img
+              className="profile-image cursor-pointer"
+              src={assets.profile_icon}
+              alt="Profile"
+            />
+            <ul
+              className={`${
+                isProfileHovered ? "flex" : "hidden"
+              } absolute cursor-pointer text-black rounded-xl z-[1] right-0 border-2 border-[#FF6347] flex-col justify-center gap-2 bg-white px-6 py-1`}
+            >
+              <li className="flex gap-2 items-center justify-center text-sm whitespace-nowrap">
+                <img src={assets.bag_icon} alt="Orders" />
+                <p>Orders</p>
+              </li>
+              <hr />
+              <li className="flex gap-2 items-center justify-center text-sm whitespace-nowrap">
+                <img src={assets.logout_icon} alt="Log Out" />
+                <p>Log Out</p>
+              </li>
+            </ul>
+          </div>
+        )}
       </div>
     </div>
   );
