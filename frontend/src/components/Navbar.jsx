@@ -1,13 +1,20 @@
 import React, { useContext, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { assets } from "../assets/images/assets";
 import { StoreContext } from "../context/StoreContext";
 
 const Navbar = ({ setShowLogin }) => {
-  const { token } = useContext(StoreContext);
+  const { token, settoken } = useContext(StoreContext);
   const { getTotalAmount } = useContext(StoreContext);
   const [menu, setMenu] = useState("Home");
   const [isProfileHover, setIsProfileHover] = useState(false);
+  const navigate = useNavigate();
+
+  const logout = () => {
+    localStorage.removeItem("token");
+    settoken("");
+    navigate("/");
+  };
 
   return (
     <div className="mx-10 max-w-full lg:mx-auto lg:max-w-[75%] flex justify-between items-center py-5 px-5 md:px-10">
@@ -83,15 +90,18 @@ const Navbar = ({ setShowLogin }) => {
             />
             <ul
               className={`${
-                isProfileHovered ? "flex" : "hidden"
-              } absolute cursor-pointer text-black rounded-xl z-[1] right-0 border-2 border-[#FF6347] flex-col justify-center gap-2 bg-white px-6 py-1`}
+                isProfileHover ? "flex" : "hidden"
+              } absolute cursor-pointer text-black rounded-xl z-[1] right-0 border-2 border-[#FF6347] flex-col justify-center gap-2 bg-white px-8 py-3`}
             >
-              <li className="flex gap-2 items-center justify-center text-sm whitespace-nowrap">
+              <li className="flex gap-2 items-center justify-center text-lg font-semibold whitespace-nowrap hover:text-orange-400">
                 <img src={assets.bag_icon} alt="Orders" />
                 <p>Orders</p>
               </li>
               <hr />
-              <li className="flex gap-2 items-center justify-center text-sm whitespace-nowrap">
+              <li
+                onClick={logout}
+                className="flex gap-2 items-center justify-center text-lg font-semibold whitespace-nowrap hover:text-orange-400"
+              >
                 <img src={assets.logout_icon} alt="Log Out" />
                 <p>Log Out</p>
               </li>

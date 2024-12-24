@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState } from "react";
 import { IoClose } from "react-icons/io5";
 import { StoreContext } from "../context/StoreContext";
 import axios from "axios";
-import "./Navbar.css";
 
 const Login = ({ setShowLogin }) => {
   const { url, settoken } = useContext(StoreContext);
