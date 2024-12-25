@@ -1,10 +1,12 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import PropTypes from "prop-types";
+import axios from "axios";
 import { food_list } from "../assets/images/assets";
 
 export const StoreContext = createContext(null);
 
 export const StoreContextProvider = (props) => {
+  const [FoodList, setFoodList] = useState("");
   const { children } = props;
   const url = "http://localhost:4000/";
   const [token, settoken] = useState("");
@@ -33,6 +35,23 @@ export const StoreContextProvider = (props) => {
     }
     return totalAmount;
   };
+
+  const fetchFoodList = async () => {
+    const response = await axios.get(url + "api/food/list");
+    setFoodList(response.data.data);
+  };
+
+  // console.log(FoodList);
+
+  useEffect(() => {
+    async function LoadData() {
+      await fetchFoodList();
+      if (localStorage.getItem("token")) {
+        settoken(localStorage.getItem("token"));
+      }
+    }
+    LoadData();
+  }, []);
 
   const contextValue = {
     food_list,

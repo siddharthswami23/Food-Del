@@ -3,7 +3,7 @@ import { useContext, useState } from "react";
 import { StoreContext } from "../context/StoreContext";
 
 const FoodItem = ({ item }) => {
-  const { CartItem, addToCart, removeFromCart } = useContext(StoreContext);
+  const { CartItem, addToCart, removeFromCart, url } = useContext(StoreContext);
 
   return (
     <div className="max-w-xs rounded-xl overflow-hidden shadow-lg bg-white transition-transform">
