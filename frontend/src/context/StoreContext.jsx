@@ -29,7 +29,7 @@ export const StoreContextProvider = (props) => {
     let totalAmount = 0;
     for (const item in CartItem) {
       if (CartItem[item] > 0) {
-        let Iteminfo = food_list.find((product) => product._id === item);
+        let Iteminfo = FoodList.find((product) => product._id === item);
         totalAmount += Iteminfo.price * CartItem[item];
       }
     }
@@ -63,6 +63,8 @@ export const StoreContextProvider = (props) => {
     url,
     token,
     settoken,
+    FoodList,
+    fetchFoodList
   };
 
   return (

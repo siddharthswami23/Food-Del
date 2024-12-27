@@ -6,9 +6,12 @@ import Footer from "../components/Footer";
 import { useNavigate } from "react-router-dom";
 
 const Cart = () => {
-  const { CartItem, food_list, removeFromCart, getTotalAmount } =
+  const { CartItem, FoodList, removeFromCart, getTotalAmount, url } =
     useContext(StoreContext);
   const navigate = useNavigate();
+
+  const foodArray = FoodList ? Object.values(FoodList) : [];
+
   return (
     <>
       <div className="text-white min-h-[35vh]">
@@ -23,7 +26,7 @@ const Cart = () => {
           </div>
           <hr className="bg-gray-400 mt-1" />
 
-          {food_list.map((item, index) => {
+          {foodArray.map((item, index) => {
             if (CartItem[item._id] > 0) {
               return (
                 <div
@@ -33,7 +36,7 @@ const Cart = () => {
                   <div className="flex justify-center col-span-2 sm:col-span-1">
                     <img
                       className="h-16 w-16 sm:h-20 sm:w-20 bg-green-500 rounded-md"
-                      src={item.image}
+                      src={url + "images/" + item.image}
                       alt={item.name}
                     />
                   </div>
@@ -81,7 +84,7 @@ const Cart = () => {
             <hr />
             <div className="flex w-full justify-between py-3 sm:py-5 text-lg sm:text-xl">
               <p>Total</p>
-              <p>${getTotalAmount() + 2}</p>
+              <p>{getTotalAmount() !== 0 ? getTotalAmount() + 2 : 0}</p>
             </div>
 
             <button

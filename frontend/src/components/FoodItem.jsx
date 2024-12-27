@@ -10,7 +10,7 @@ const FoodItem = ({ item }) => {
       <div className="relative">
         <img
           className="w-full h-52 object-cover rounded-t-xl hover:scale-105"
-          src={item.image}
+          src={url + "images/" + item.image}
           alt={item.name}
         />
         {!CartItem[item._id] ? (
