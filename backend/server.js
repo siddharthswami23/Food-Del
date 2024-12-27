@@ -9,6 +9,7 @@ dotenv.config();
 
 const Foodrouter = require("./routes/FoodRouter.js");
 const userRouter = require("./routes/UserRouter.js");
+const CartRouter = require("./routes/CartRouter.js");
 const uploads = path.join(__dirname, "uploads");
 
 const app = express();
@@ -21,6 +22,7 @@ connectDB();
 app.use("/api/food", Foodrouter);
 app.use("/images", express.static(uploads));
 app.use("/api/user", userRouter);
+app.use("/api/cart", CartRouter);
 
 app.get("/", (req, res) => {
   res.send("api is running");
