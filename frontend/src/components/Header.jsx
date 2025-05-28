@@ -1,6 +1,6 @@
 const Header = () => {
   return (
-    <div className="my-10 mx-auto px-4 sm:px-10 md:px-20 py-20 sm:py-32 md:py-44 bg-center bg-cover bg-[url('https://food-del-frontend-fx0q.onrender.com/header_img.png')] rounded-2xl w-[90vw] md:w-[75vw] h-[50vh] sm:h-[60vh] md:h-[70vh] bg-white">
+    <div className="my-10 mx-auto px-4 sm:px-10 md:px-20 py-20 sm:py-32 md:py-44 bg-center bg-cover bg-[url('https://i.pinimg.com/474x/00/ed/39/00ed390bb97eef0ec52bda0665badd65.jpg')] rounded-2xl w-[90vw] md:w-[75vw] h-[50vh] sm:h-[60vh] md:h-[70vh] bg-white">
       <div className="flex flex-col items-start h-full justify-center">
         <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold leading-tight">
           Order your <br /> favourite food here

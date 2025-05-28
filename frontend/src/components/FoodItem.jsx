@@ -43,7 +43,6 @@ const FoodItem = ({ item }) => {
         <div className="w-full flex justify-between items-center mb-2">
           <h1 className="font-bold text-black text-2xl">{item.name}</h1>
           <img className="h-5" src={assets.rating_starts} alt="Rating" />{" "}
-          {/* Fixed typo here */}
         </div>
         <p className="text-gray-700 text-sm mb-3">{item.description}</p>
         <h3 className="text-orange-500 text-2xl font-semibold">

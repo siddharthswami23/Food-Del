@@ -9,21 +9,21 @@ import Login from "./components/Login";
 
 const App = () => {
   const [ShowLogin, setShowLogin] = useState(false)
-  useEffect(() => {
-    // Initialize Lenis
-    const lenis = new Lenis();
+  // useEffect(() => {
+  //   // Initialize Lenis
+  //   const lenis = new Lenis();
 
-    // Listen for the scroll event and log the event data
-    lenis.on("scroll", () => {});
+  //   // Listen for the scroll event and log the event data
+  //   lenis.on("scroll", () => {});
 
-    // Use requestAnimationFrame to continuously update the scroll
-    function raf(time) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    }
+  //   // Use requestAnimationFrame to continuously update the scroll
+  //   function raf(time) {
+  //     lenis.raf(time);
+  //     requestAnimationFrame(raf);
+  //   }
 
-    requestAnimationFrame(raf);
-  }, []);
+  //   requestAnimationFrame(raf);
+  // }, []);
 
   return (
     

@@ -11,6 +11,7 @@ const Cart = () => {
   const navigate = useNavigate();
 
   const foodArray = FoodList ? Object.values(FoodList) : [];
+  // console.log(foodArray);
 
   return (
     <>
@@ -27,7 +28,7 @@ const Cart = () => {
           <hr className="bg-gray-400 mt-1" />
 
           {foodArray.map((item, index) => {
-            if (CartItem[item._id] > 0) {
+            if (CartItem[item._id]>0) {
               return (
                 <div
                   key={index}
