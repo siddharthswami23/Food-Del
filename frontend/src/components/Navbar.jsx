@@ -4,7 +4,7 @@ import { assets } from "../assets/images/assets";
 import { StoreContext } from "../context/StoreContext";
 
 const Navbar = ({ setShowLogin }) => {
-  const { token, settoken } = useContext(StoreContext);
+  const { token, settoken, setuserid } = useContext(StoreContext);
   const { getTotalAmount } = useContext(StoreContext);
   const [menu, setMenu] = useState("Home");
   const [isProfileHover, setIsProfileHover] = useState(false);
@@ -12,7 +12,9 @@ const Navbar = ({ setShowLogin }) => {
 
   const logout = () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("userid");
     settoken("");
+    setuserid("");
     navigate("/");
   };
 

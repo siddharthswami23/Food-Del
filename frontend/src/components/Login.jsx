@@ -4,7 +4,7 @@ import { StoreContext } from "../context/StoreContext";
 import axios from "axios";
 
 const Login = ({ setShowLogin }) => {
-  const { url, settoken } = useContext(StoreContext);
+  const { setuserid, url, settoken } = useContext(StoreContext);
   // console.log(url);
   const [CurrentState, setCurrentState] = useState("Sign Up");
   const [data, setdata] = useState({
@@ -36,7 +36,7 @@ const Login = ({ setShowLogin }) => {
     let newurl = url;
     if (CurrentState === "Log In") {
       newurl += "api/user/login";
-      console.log("login");
+      // console.log("login");
     } else {
       newurl += "api/user/register";
     }
@@ -44,8 +44,10 @@ const Login = ({ setShowLogin }) => {
     const response = await axios.post(newurl, data);
 
     if (response.data.success) {
+      setuserid(response.data.userid);
       settoken(response.data.token);
       localStorage.setItem("token", response.data.token);
+      localStorage.setItem("userid", response.data.userid);
       setShowLogin(false);
     } else {
       alert(response.data.message);

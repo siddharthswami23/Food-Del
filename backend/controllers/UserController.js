@@ -20,7 +20,7 @@ const loginUser = async (req, res) => {
     }
 
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
-    res.json({ success: true, token,message: "Login Successful" });
+    res.json({ success: true, token, userid: user._id, message: "Login Successful" });
   } catch (error) {
     console.log(error);
     res.json({ success: false, message: "Error" });
@@ -61,7 +61,7 @@ const registerUser = async (req, res) => {
 
     const user = await newUser.save();
     let token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET);
-    res.json({ success: true, token, message: "Account Created Successfully" });
+    res.json({ success: true, token, userid: user._id, message: "Account Created Successfully" });
   } catch (error) {
     console.log(error);
     res.json({ success: false, message: "Error" });

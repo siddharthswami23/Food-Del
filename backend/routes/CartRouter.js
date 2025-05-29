@@ -9,6 +9,6 @@ const {
 
 CartRouter.post("/add", authMiddleware, addToCart);
 CartRouter.post("/remove", authMiddleware, removeFromCart);
-CartRouter.post("/get", authMiddleware, getCart);
+CartRouter.post("/get", getCart);
 
 module.exports = CartRouter;

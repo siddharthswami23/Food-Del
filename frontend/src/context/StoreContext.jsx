@@ -6,10 +6,11 @@ import { food_list } from "../assets/images/assets";
 export const StoreContext = createContext(null);
 
 export const StoreContextProvider = (props) => {
-  const [FoodList, setFoodList] = useState("");
+  const [FoodList, setFoodList] = useState([]);
   const { children } = props;
   const url = "http://localhost:4000/";
   const [token, settoken] = useState("");
+  const [userid, setuserid] = useState("");
 
   const [CartItem, setCartItem] = useState({});
 
@@ -23,23 +24,25 @@ export const StoreContextProvider = (props) => {
     if (token) {
       await axios.post(
         url + "api/cart/add",
-        { itemId },
+        { userid: userid.toString(), itemId },
         { headers: { token } }
       );
     }
   };
 
   const removeFromCart = async (itemId) => {
-    if (!CartItem[itemId]) {
-      setCartItem((prev) => ({ ...prev, [itemId]: 1 }));
+    if (CartItem[itemId] > 1) {
+      setCartItem((prev) => ({ ...prev, [itemId]: prev[itemId] - 1 }));
     } else {
-      setCartItem((prev) => ({ ...prev, [itemId]: prev[itemId] + 1 }));
+      const updatedCart = { ...CartItem };
+      delete updatedCart[itemId];
+      setCartItem(updatedCart);
     }
 
     if (token) {
       await axios.post(
         url + "api/cart/remove",
-        { itemId },
+        { userid, itemId },
         { headers: { token } }
       );
     }
@@ -57,35 +60,54 @@ export const StoreContextProvider = (props) => {
   };
 
   const fetchFoodList = async () => {
-    const response = await axios.get(url + "api/food/list");
-    setFoodList(response.data.data);
-  };
-
-  // console.log(FoodList);
-
-  const loadCartData = async () => {
-    const response = await axios.post(
-      url + "api/cart/get",
-      {},
-      { headers: { token } }
-    );
-    console.log(response.data);
-    if (response.data.success) {
-      setCartItem(response.data.cartData);
-    } else {
-      console.error("Failed to load cart data");
+    try {
+      const response = await axios.get(url + "api/food/list");
+      setFoodList(response.data.data);
+    } catch (error) {
+      console.error("Error fetching food list:", error);
     }
   };
+
+  const loadCartData = async () => {
+    if (!userid || !token) return;
+
+    try {
+      const response = await axios.post(
+        url + "api/cart/get",
+        { userid: userid.toString() },
+        { headers: { token } }
+      );
+
+      console.log(response.data);
+      if (response.data.success) {
+        setCartItem(response.data.cartData);
+      } else {
+        console.error("Failed to load cart data");
+      }
+    } catch (error) {
+      console.error("Error loading cart data:", error);
+    }
+  };
+
   useEffect(() => {
     async function LoadData() {
       await fetchFoodList();
-      if (localStorage.getItem("token")) {
-        settoken(localStorage.getItem("token"));
-        await loadCartData(localStorage.getItem("token"));
+
+      const storedToken = localStorage.getItem("token");
+      const storedUserid = localStorage.getItem("userid");
+
+      if (storedToken && storedUserid) {
+        settoken(storedToken);
+        setuserid(storedUserid);
       }
     }
+
     LoadData();
   }, []);
+
+  useEffect(() => {
+    loadCartData();
+  }, [userid, token]);
 
   const contextValue = {
     food_list,
@@ -99,6 +121,8 @@ export const StoreContextProvider = (props) => {
     settoken,
     FoodList,
     fetchFoodList,
+    userid,
+    setuserid,
   };
 
   return (
