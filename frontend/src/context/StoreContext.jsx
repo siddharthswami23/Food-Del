@@ -22,11 +22,20 @@ export const StoreContextProvider = (props) => {
     }
 
     if (token) {
-      await axios.post(
-        url + "api/cart/add",
-        { userid: userid.toString(), itemId },
-        { headers: { token } }
-      );
+      await axios
+        .post(
+          url + "api/cart/add",
+          { userid: userid.toString(), itemId },
+          { headers: { token } }
+        )
+        .then((response) => {
+          if (!response.data.success) {
+            console.error("Failed to add item to cart:", response.data.message);
+          }
+        })
+        .catch((error) => {
+          console.error("Error adding item to cart:", error);
+        });
     }
   };
 
@@ -40,11 +49,23 @@ export const StoreContextProvider = (props) => {
     }
 
     if (token) {
-      await axios.post(
-        url + "api/cart/remove",
-        { userid, itemId },
-        { headers: { token } }
-      );
+      await axios
+        .post(
+          url + "api/cart/remove",
+          { userid, itemId },
+          { headers: { token } }
+        )
+        .then((response) => {
+          if (!response.data.success) {
+            console.error(
+              "Failed to remove item from cart:",
+              response.data.message
+            );
+          }
+        })
+        .catch((error) => {
+          console.error("Error removing item from cart:", error);
+        });
     }
   };
 
@@ -78,7 +99,7 @@ export const StoreContextProvider = (props) => {
         { headers: { token } }
       );
 
-      console.log(response.data);
+      // console.log(response.data);
       if (response.data.success) {
         setCartItem(response.data.cartData);
       } else {

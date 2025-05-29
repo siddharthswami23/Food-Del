@@ -7,8 +7,8 @@ const {
   removeFromCart,
 } = require("../controllers/CartController.js");
 
-CartRouter.post("/add", authMiddleware, addToCart);
-CartRouter.post("/remove", authMiddleware, removeFromCart);
+CartRouter.post("/add", addToCart);
+CartRouter.post("/remove", removeFromCart);
 CartRouter.post("/get", getCart);
 
 module.exports = CartRouter;
