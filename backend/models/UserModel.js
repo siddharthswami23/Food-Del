@@ -19,8 +19,7 @@ const UserSchema = new mongoose.Schema(
       type: Object,
       default: {},
     },
-  },
-  { minimize: false }
+  }
 );
 
 const userModel = mongoose.model("user", UserSchema);
