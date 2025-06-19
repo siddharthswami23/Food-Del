@@ -5,10 +5,12 @@ const {
   addToCart,
   getCart,
   removeFromCart,
+  ClearCart,
 } = require("../controllers/CartController.js");
 
 CartRouter.post("/add", addToCart);
 CartRouter.post("/remove", removeFromCart);
 CartRouter.post("/get", getCart);
+CartRouter.post("/clear", ClearCart);
 
 module.exports = CartRouter;

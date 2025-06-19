@@ -35,17 +35,34 @@ const PlaceOrder = () => {
     }));
   };
 
+  const handleCart = async (userid) => {
+    try {
+      const response = await axios.post(`${url}api/cart/clear`, {
+        userid: userid,
+      });
+      if (!response.data.success) {
+        cconsole.error("Failed to clear cart.");
+      }
+    } catch (error) {
+      console.error("Error clearing cart:", error);
+    }
+  };
+
   const handlePayment = async () => {
     try {
       setLoading(true);
-      await new Promise((resolve) => setTimeout(resolve, 2000)); // Simulated delay
+      await new Promise((resolve) => setTimeout(resolve, 5000));
 
       const response = await axios.post(`${url}api/order/create`, {
         userId: userid,
-        items: [], // Replace with actual items from cart if needed
+        items: [],
         address: formData,
         amount: getTotalAmount(),
       });
+
+      if (response.data.success) {
+        await handleCart(userid);
+      }
 
       toast.success("Order placed successfully");
       setIsModalOpen(true);

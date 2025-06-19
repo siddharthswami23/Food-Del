@@ -68,4 +68,19 @@ const registerUser = async (req, res) => {
   }
 };
 
-module.exports = { loginUser, registerUser };
+const getuserById = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const user = await userModel.findById(id);
+    if (!user) {
+      return res.status(404).json({ success: false, message: "User not found" });
+    }
+    res.json({ success: true, user });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ success: false, message: "Error fetching user" });
+  }
+};
+
+
+module.exports = { loginUser, registerUser, getuserById };
