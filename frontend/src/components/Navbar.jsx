@@ -68,7 +68,7 @@ const Navbar = ({ setShowLogin }) => {
           className={`${
             getTotalAmount() < 3
               ? "hidden"
-              : "w-3 h-3 absolute right-[38%] lg:right-[22%] top-6 bg-orange-400 rounded-full"
+              : "w-3 h-3 absolute right-[28%] lg:right-[18%] top-6 bg-orange-400 rounded-full"
           }`}
         ></div>
 

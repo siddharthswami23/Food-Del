@@ -6,9 +6,10 @@ import PlaceOrder from "./pages/PlaceOrder";
 import { useEffect, useState } from "react";
 import Lenis from "lenis";
 import Login from "./components/Login";
+import { ToastContainer, toast } from "react-toastify";
 
 const App = () => {
-  const [ShowLogin, setShowLogin] = useState(false)
+  const [ShowLogin, setShowLogin] = useState(false);
   // useEffect(() => {
   //   // Initialize Lenis
   //   const lenis = new Lenis();
@@ -26,9 +27,9 @@ const App = () => {
   // }, []);
 
   return (
-    
     <div>
-      {ShowLogin ? <Login setShowLogin={setShowLogin} /> : "" }
+      <ToastContainer position="bottom-right" />
+      {ShowLogin ? <Login setShowLogin={setShowLogin} /> : ""}
       <Navbar setShowLogin={setShowLogin} />
       <Routes>
         <Route path="/" element={<Home />} />
