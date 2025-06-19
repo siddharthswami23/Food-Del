@@ -1,4 +1,4 @@
-  import { createContext, useEffect, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
 import { food_list } from "../assets/images/assets";
@@ -8,7 +8,7 @@ export const StoreContext = createContext(null);
 export const StoreContextProvider = (props) => {
   const [FoodList, setFoodList] = useState([]);
   const { children } = props;
-  const url = "http://localhost:4000/";
+  const url = "https://food-del-dw1h.onrender.com/";
   const [token, settoken] = useState("");
   const [userid, setuserid] = useState("");
 
