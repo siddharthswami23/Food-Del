@@ -11,6 +11,7 @@ export const StoreContextProvider = (props) => {
   const url = "https://food-del-dw1h.onrender.com/";
   const [token, settoken] = useState("");
   const [userid, setuserid] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
 
   const [CartItem, setCartItem] = useState({});
 
@@ -144,6 +145,8 @@ export const StoreContextProvider = (props) => {
     fetchFoodList,
     userid,
     setuserid,
+    searchQuery,
+    setSearchQuery,
   };
 
   return (

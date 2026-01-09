@@ -3,7 +3,7 @@ import { StoreContext } from "../context/StoreContext";
 import FoodItem from "./FoodItem";
 
 const FoodDisplay = ({ Category, setCategory }) => {
-  const { food_list, FoodList, fetchFoodList } = useContext(StoreContext);
+  const { food_list, FoodList, fetchFoodList, searchQuery } = useContext(StoreContext);
   const foodArray = FoodList ? Object.values(FoodList) : [];
 
   return (
@@ -12,6 +12,11 @@ const FoodDisplay = ({ Category, setCategory }) => {
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5">
         {foodArray
           .filter((item) => item.category === Category || Category === "All")
+          .filter((item) => 
+            searchQuery === "" || 
+            item.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            item.description.toLowerCase().includes(searchQuery.toLowerCase())
+          )
           .map((item, index) => (
             <FoodItem key={index} item={item} />
           ))}

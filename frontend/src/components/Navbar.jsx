@@ -4,10 +4,10 @@ import { assets } from "../assets/images/assets";
 import { StoreContext } from "../context/StoreContext";
 
 const Navbar = ({ setShowLogin }) => {
-  const { token, settoken, setuserid } = useContext(StoreContext);
-  const { getTotalAmount } = useContext(StoreContext);
+  const { token, settoken, setuserid, getTotalAmount, searchQuery, setSearchQuery } = useContext(StoreContext);
   const [menu, setMenu] = useState("Home");
   const [isProfileHover, setIsProfileHover] = useState(false);
+  const [showSearch, setShowSearch] = useState(false);
   const navigate = useNavigate();
 
   const logout = () => {
@@ -55,7 +55,33 @@ const Navbar = ({ setShowLogin }) => {
       </ul>
 
       <div className="flex items-center gap-3 ml-5 lg:ml-0 lg:gap-10">
-        <img src={assets.search_icon} alt="Search" className="w-6 h-6" />
+        {showSearch ? (
+          <div className="flex items-center gap-2">
+            <input
+              type="text"
+              placeholder="Search for food..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="px-3 py-1 border-2 border-tomato rounded-full text-black outline-none w-40 lg:w-60"
+            />
+            <button
+              onClick={() => {
+                setShowSearch(false);
+                setSearchQuery("");
+              }}
+              className="text-white hover:text-tomato"
+            >
+              ✕
+            </button>
+          </div>
+        ) : (
+          <img
+            src={assets.search_icon}
+            alt="Search"
+            className="w-6 h-6 cursor-pointer"
+            onClick={() => setShowSearch(true)}
+          />
+        )}
 
         <Link to="/cart">
           <img
